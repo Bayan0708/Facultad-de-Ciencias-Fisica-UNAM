@@ -1,0 +1,16 @@
+import numpy as np
+def ecuacion(valores):
+    resultados = []
+    for x in valores:
+        numerador = (0.1 * ((0.1 * x) / ((0.1 * x) + (0.9 * (1 - x)))))
+        denominador = (0.9 * ((0.1 * x) / ((0.1 * x) + (0.9 * (1 - x))))) + (0.9 * (1 - ((0.1 * x) / ((0.1 * x) + (0.9 * (1 - x))))))
+        resultado = numerador / denominador
+        resultados.append(resultado)
+    return resultados
+# Valores de x dando saltitos
+valores = np.arange(0.1, 1.0, 0.1)
+# Aplicamos la función a los valores
+resultados = ecuacion(valores)
+# Imprimimos los resultados
+for x, res in zip(valores, resultados):
+    print(f"x = {x:.1f}, Resultado = {res:.4f}")

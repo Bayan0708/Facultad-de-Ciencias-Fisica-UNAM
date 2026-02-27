@@ -1,0 +1,13 @@
+from sympy import symbols, Eq, solve
+x, y, z, w = symbols('x y z w')
+m1, m2, m3, g = symbols('m1 m2 m3 g')
+eq1 = Eq(m1*x - w, g*m1)
+eq2 = Eq(-(m2+m3)*x + (m2-m3)*y - w, g*(m2+m3))
+eq3 = Eq(-m2*x + m2*y - z, m2*g)
+eq4 = Eq(-m3*x - m3*y - z, m3*g)
+sol = solve((eq1, eq2, eq3, eq4), (x, y, z, w))
+print("Soluciones:")
+print("x =", sol[x])
+print("y =", sol[y])
+print("z =", sol[z])
+print("w =", sol[w])

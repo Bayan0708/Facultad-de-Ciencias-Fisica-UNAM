@@ -1,0 +1,49 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+from math import *
+
+def f(x):
+  remplazo = funcion.replace('x', str(x))
+  resultado = eval(remplazo)
+  return resultado
+
+df = pd.read_excel(r'D:\Semestre_2\Laboratorio_de_Mecánica\Carrito_02.xlsx')
+#df = pd.read_csv(r'D:\Semestre_2\Laboratorio_de_Mecánica', delimiter='\t')
+
+df['tx'] = df['t'] * df['x']
+df['t2'] = df['t']**2
+n = len(df['t'])
+sum_t = df['t'].sum()
+sum_x = df['x'].sum()
+sum_tx = df['tx'].sum()
+sum_t2 = df['t2'].sum()
+m = (sum_tx - (((sum_x * sum_t))/n)) / (sum_t2 - ((sum_t)**2/(n)))
+b = (sum_x/n) - m * (sum_t/n)
+funcion = str(m) + '* x' + str(b)
+df['t_prom'] = df['t'].mean()
+df['t-tprom'] = df['t'] - df['t_prom']
+desv_est = ((df['t-tprom'].sum())*df['t-tprom'].sum())/n
+delta_m = sqrt((n * desv_est)/(n * sum_t2 - sum_t))
+delta_b = sqrt((desv_est * sum_t2)/(n * sum_t2 - sum_t * sum_t))
+
+listx = np.linspace(0, 5, 500)
+listy = []
+
+for number in listx:
+  listy.append(f(number))
+
+if b < 0:
+  b = b
+else:
+  b = "+" + str(b)
+
+plt.scatter(df['t'], df['x'], marker=".")
+#plt.title("$y = $" + str(m) + "$x$" + str(b) + "\n $\Delta$m = " + str(delta_m) + " $\Delta$b = " + str(delta_b))
+plt.plot(listx, listy, color='red')
+plt.ylim(0,0.6)
+plt.xlim(0,1.75)
+plt.ylabel('x')
+plt.xlabel('t')
+plt.grid()
+plt.show()

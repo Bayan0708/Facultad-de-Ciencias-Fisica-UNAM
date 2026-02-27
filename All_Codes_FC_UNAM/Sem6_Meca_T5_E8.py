@@ -1,0 +1,11 @@
+from sympy import symbols, Eq, solve
+x, y, z= symbols('x y z')
+θ1, θ2, l1, l2, g = symbols('θ1 θ2 l1 l2 g')
+eq1 = Eq(5*x+2*l1*y+l2*z, 0)
+eq2 = Eq(2*l1*x+2*(l1**2)*y+l1*l2*z, -2*g*l1*θ1)
+eq3 = Eq(l2*x+l1*l2*y+(l2**2)*z, -g*l2*θ2)
+sol = solve((eq1, eq2, eq3), (x, y, z))
+print("Soluciones:")
+print("x =", sol[x])
+print("y =", sol[y])
+print("z =", sol[z])
